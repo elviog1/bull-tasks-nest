@@ -28,6 +28,19 @@ export class TaskService {
         }
     }
 
+    async getTaskById(taskId:string):Promise<Task>{
+        try {
+            const task = await this.taskModel.findById(taskId)
+            if(!task){
+                throw new BadRequestException("Task not found")
+            }
+            return task
+        } catch (error) {
+            console.log(error)
+            
+        }
+    }
+
     async getAllTasksByUserId(userId:string):Promise<Task[]>{
         try {
             const tasks = await this.taskModel.find({userId})
